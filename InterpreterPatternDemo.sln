@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterpreterPatternDemo", "InterpreterPatternDemo.csproj", "{98758125-6797-4944-A25D-75A92579149A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterpreterPatternDemo", "InterpreterPatternDemo\InterpreterPatternDemo.csproj", "{98758125-6797-4944-A25D-75A92579149A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailFilter", "..\EmailFilter\EmailFilter.csproj", "{7508BB37-9B58-43F0-80CF-57288B73B37E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailFilter", "EmailFilter\EmailFilter.csproj", "{7508BB37-9B58-43F0-80CF-57288B73B37E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
