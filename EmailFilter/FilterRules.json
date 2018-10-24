@@ -1,0 +1,14 @@
+[
+    {
+        "Id": 1,
+        "Name": "Production emails",
+        "Statement": "AND(Subject[contains='production build'], From[equals='prod@mail.com'])",
+        "Label": "Production"
+    },
+    {
+        "Id": 2,
+        "Name": "Urgent emails",
+        "Statement": "OR(Subject[contains='issue'], From[equals='live-support@mail.com'], To[startsWith='24x7support'])",
+        "Label": "Urgent"
+    }
+]
