@@ -6,7 +6,7 @@ namespace InterpreterPatternDemo
     {
         static void Main(string[] args)
         {
-            //DoFactoryDemo.Run();
+            RomanConversionDemo.Run();
             AndOrDemo.Run();
         }
     }

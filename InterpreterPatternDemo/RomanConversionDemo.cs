@@ -3,13 +3,15 @@ using System;
 using System.Collections.Generic;
 namespace InterpreterPatternDemo
 {
-    public class DoFactoryDemo
+    public class RomanConversionDemo
     {
         /// <summary>
         /// Entry point into console application.
         /// </summary>
         public static void Run()
         {
+            Console.WriteLine("## Roman Conversion Demo");
+
             string roman = "MCMXXVIII";
             Context context = new Context(roman);
 

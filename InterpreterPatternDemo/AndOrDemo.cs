@@ -24,6 +24,8 @@ namespace InterpreterPatternDemo
 
         public static void Run()
         {
+            Console.WriteLine("## AndOr Demo");
+
             IExpression isMale = GetMaleExpression();
             IExpression isMarriedWoman = GetMarriedWomanExpression();
 
