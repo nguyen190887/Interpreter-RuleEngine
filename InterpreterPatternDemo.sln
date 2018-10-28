@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterpreterPatternDemo", "I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailFilter", "EmailFilter\EmailFilter.csproj", "{7508BB37-9B58-43F0-80CF-57288B73B37E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailFilter.Tests", "EmailFilter.Tests\EmailFilter.Tests.csproj", "{F417764D-CB6C-4C93-81B9-0662D5512795}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7508BB37-9B58-43F0-80CF-57288B73B37E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7508BB37-9B58-43F0-80CF-57288B73B37E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7508BB37-9B58-43F0-80CF-57288B73B37E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F417764D-CB6C-4C93-81B9-0662D5512795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F417764D-CB6C-4C93-81B9-0662D5512795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F417764D-CB6C-4C93-81B9-0662D5512795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F417764D-CB6C-4C93-81B9-0662D5512795}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
