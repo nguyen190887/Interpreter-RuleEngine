@@ -6,7 +6,9 @@ namespace EmailFilter
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string expression = "AND(Rule1, OR(Rule2, Rule3), AND(Rule4, OR(Rule5, Rule6)))";
+            var parser = new ExpressionParser();
+            var root = parser.Parse(expression);
         }
     }
 }
