@@ -10,7 +10,7 @@ namespace EmailFilter.Rules
         private readonly IDictionary<string, Func<Email, object>> _fieldMapping =
             new Dictionary<string, Func<Email, object>>
             {
-                {"subject", email => email.Subject },
+                { "subject", email => email.Subject },
                 { "from", email => email.From},
                 { "to", email => email.To },
                 { "date", email => email.Date }
@@ -24,14 +24,19 @@ namespace EmailFilter.Rules
 
         public CompareRule(string field, string opValue, string target)
         {
-            _fieldGetter = _fieldMapping[field];
-            _operator = OperatorFactory.Create(opValue);
+            _fieldGetter = _fieldMapping[field.ToLower()];
+            _operator = OperatorFactory.Create(opValue.ToLower());
             _target = target;
         }
 
         public bool IsMatched(Email email)
         {
             return _operator.Evaluate(_fieldGetter(email), _target);
+        }
+
+        public void AddChildRules(params IRule[] rules)
+        {
+            throw new NotSupportedException("This rule does not support adding child rule.");
         }
     }
 }

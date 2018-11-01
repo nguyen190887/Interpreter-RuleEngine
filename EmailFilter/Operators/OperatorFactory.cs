@@ -14,7 +14,7 @@ namespace EmailFilter.Operators
                     return new EqualsOperator();
                 case "contains":
                     return new ContainsOperator();
-                case "startsWith":
+                case "startswith":
                     return new StartsWithOperator();
                 default:
                     throw new NotSupportedException($"Operator {opValue} is not supported");

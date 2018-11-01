@@ -6,11 +6,16 @@ namespace EmailFilter.Rules
 {
     public class AndRule : IRule
     {
-        private readonly IRule[] _rules;
+        private readonly List<IRule> _rules;
+
+        public AndRule()
+        {
+            _rules = new List<IRule>();
+        }
 
         public AndRule(params IRule[] rules)
         {
-            _rules = rules;
+            _rules = new List<IRule>(rules);
         }
 
         public bool IsMatched(Email email)
@@ -25,6 +30,11 @@ namespace EmailFilter.Rules
                 }
             }
             return true;
+        }
+
+        public void AddChildRules(params IRule[] rules)
+        {
+            _rules.AddRange(rules);
         }
     }
 }

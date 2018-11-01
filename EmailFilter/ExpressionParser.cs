@@ -1,17 +1,19 @@
 ﻿using EmailFilter.Rules;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace EmailFilter
 {
     public class ExpressionParser
     {
-        public RuleNode Parse(string expression)
+        public IRule Parse(string expression)
         {
             /*
              * Sample:
-             *   AND(Rule1, OR(Rule2, Rule3))
+             *   AND(Rule1, OR(Rule2, Rule3), AND(Rule4, OR(Rule5, Rule6)))
              *
              * Rule details:
              *   Subject[contains='prod']
@@ -31,14 +33,20 @@ namespace EmailFilter
                 }
                 else if (current == '(')
                 {
-                    ruleStack.PushRule(accumulator, level);
-                    level++;
-                    accumulator.Clear();
+                    if (accumulator.Length > 0)
+                    {
+                        ruleStack.Push(InitEntry(accumulator, level));
+                        level++;
+                        accumulator.Clear();
+                    }
                 }
                 else if (current == ',')
                 {
-                    ruleStack.PushRule(accumulator, level);
-                    accumulator.Clear();
+                    if (accumulator.Length > 0)
+                    {
+                        ruleStack.Push(InitEntry(accumulator, level));
+                        accumulator.Clear();
+                    }
                 }
                 else if (current == ')')
                 {
@@ -49,15 +57,16 @@ namespace EmailFilter
                         accumulator.Clear();
                     }
 
-                    RuleNode topNode;
-                    while ((topNode = ruleStack.Pop()).Level == level)
+                    // Pop until meeting parent node
+                    RuleNode top;
+                    while ((top = ruleStack.Pop()).Level == level)
                     {
-                        childRules.Add(topNode);
+                        childRules.Add(top);
                     }
 
                     // Compose rule and update stack
-                    RuleNode compositeRule = topNode;
-                    compositeRule.Children = childRules;
+                    RuleNode compositeRule = top;
+                    compositeRule.Rule.AddChildRules(childRules.Select(x => x.Rule).ToArray());
                     ruleStack.Push(compositeRule);
                     level--;
                 }
@@ -66,15 +75,39 @@ namespace EmailFilter
                     accumulator.Append(current);
                 }
             }
-            
-            return ruleStack.Pop();
+
+            return ruleStack.Any() ? ruleStack.Pop().Rule : null;
+        }
+
+        private IRule InitRule(string ruleText)
+        {
+            switch (ruleText)
+            {
+                case "AND":
+                    return new AndRule();
+                case "OR":
+                    return new OrRule();
+                default:
+                    const string rulePattern = "(\\w+)\\[([a-z]+)='(.+)'\\]";
+                    var regex = new Regex(rulePattern, RegexOptions.IgnoreCase);
+                    var match = regex.Match(ruleText);
+
+                    if (!match.Success || match.Groups.Count < 4)
+                    {
+                        return null;
+                    }
+
+                    return new CompareRule(match.Groups[1].Value, match.Groups[2].Value, match.Groups[3].Value);
+            }
         }
 
         private RuleNode InitEntry(StringBuilder accumulator, int level)
         {
+            string ruleText = accumulator.ToString();
             return new RuleNode
             {
-                Text = accumulator.ToString(),
+                Text = ruleText,
+                Rule = InitRule(ruleText),
                 Level = level
             };
         }
@@ -85,7 +118,6 @@ namespace EmailFilter
         public IRule Rule { get; set; }
         public string Text { get; set; }
         public int Level { get; set; }
-        public IEnumerable<RuleNode> Children { get; set; }
     }
 
     public static class RuleStackExtensions

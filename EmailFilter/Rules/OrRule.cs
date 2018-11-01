@@ -4,13 +4,19 @@ using System.Text;
 
 namespace EmailFilter.Rules
 {
+    //todo: create CompositeRule as base class of AndRule and OrRule
     public class OrRule : IRule
     {
-        private readonly IRule[] _rules;
+        private readonly List<IRule> _rules;
+
+        public OrRule()
+        {
+            _rules = new List<IRule>();
+        }
 
         public OrRule(params IRule[] rules)
         {
-            _rules = rules;
+            _rules = new List<IRule>(rules);
         }
 
         public bool IsMatched(Email email)
@@ -25,6 +31,11 @@ namespace EmailFilter.Rules
                 }
             }
             return false;
+        }
+
+        public void AddChildRules(params IRule[] rule)
+        {
+            _rules.AddRange(rule);
         }
     }
 }
