@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace EmailFilter
 {
-    public class ExpressionParser
+    public class RuleParser
     {
         public IRule Parse(string expression)
         {
@@ -26,12 +26,8 @@ namespace EmailFilter
             for (int i = 0; i < expression.Length; i++)
             {
                 char current = expression[i];
-
-                if (current == ' ')
-                {
-                    continue;
-                }
-                else if (current == '(')
+                
+                if (current == '(')
                 {
                     if (accumulator.Length > 0)
                     {
@@ -103,7 +99,7 @@ namespace EmailFilter
 
         private RuleNode InitEntry(StringBuilder accumulator, int level)
         {
-            string ruleText = accumulator.ToString();
+            string ruleText = accumulator.ToString().Trim();
             return new RuleNode
             {
                 Text = ruleText,

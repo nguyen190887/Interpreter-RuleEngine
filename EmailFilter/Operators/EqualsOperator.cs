@@ -8,6 +8,11 @@ namespace EmailFilter.Operators
     {
         public bool Evaluate(object source, object target)
         {
+            if (source is string && target is string)
+            {
+                return string.Equals((string)source, (string)target, StringComparison.OrdinalIgnoreCase);
+            }
+
             return source == target;
         }
     }
