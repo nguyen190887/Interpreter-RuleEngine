@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using EmailFilter.Rules;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -36,6 +37,12 @@ namespace EmailFilter
             public int Id { get; set; }
             public string Name { get; set; }
             public string Statement { get; set; }
+            public string Label { get; set; }
+        }
+
+        public class FilterRule
+        {
+            public IRule Rule { get; set; }
             public string Label { get; set; }
         }
     }
